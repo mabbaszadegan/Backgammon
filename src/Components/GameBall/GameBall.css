@@ -1,0 +1,19 @@
+.ball{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: block;
+    margin: 3pt;
+}
+
+.player1{
+    background-color: white;
+    border: 1px black solid;
+    box-shadow: inset 1px 1px 13px 3px black;
+}
+
+.player2{
+    background-color: black;
+    border: 1px white solid;
+    box-shadow: inset 1px 1px 13px 3px white;
+}
