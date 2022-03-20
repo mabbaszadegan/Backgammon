@@ -1,19 +1,30 @@
-.ball{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: block;
-    margin: 3pt;
+.ball {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+  margin: 2pt;
+  cursor: pointer;
 }
 
-.player1{
-    background-color: white;
-    border: 1px black solid;
-    box-shadow: inset 1px 1px 13px 3px black;
+.player1 {
+  background-color: white;
+  border: 1px black solid;
+  box-shadow: inset 1px 1px 13px 3px black;
 }
 
-.player2{
-    background-color: black;
-    border: 1px white solid;
-    box-shadow: inset 1px 1px 13px 3px white;
+.ball.player1.selected {
+  background-color: black;
+  box-shadow: inset 1px 1px 13px 3px rgb(9, 243, 28);
+}
+
+.player2 {
+  background-color: black;
+  border: 1px white solid;
+  box-shadow: inset 1px 1px 13px 3px white;
+}
+
+.ball.player2.selected {
+  background-color: white;
+  box-shadow: inset 1px 1px 13px 3px rgb(9, 243, 28);
 }

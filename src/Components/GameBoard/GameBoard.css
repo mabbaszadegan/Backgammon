@@ -1,11 +1,11 @@
 .gameBoard {
-    height: 600px;
-    width: 700px;
-    background-color: #e4a3a3;
-    border: 1px solid gray;
-    border-radius: 7px;
-    padding: 7px;
-    box-shadow: 14px 8px 16px 4px #8d4c4c;
+  height: 680px;
+  width: 700px;
+  background-color: #e4a3a3;
+  border: 1px solid gray;
+  border-radius: 7px;
+  padding: 0px 7px 0px 7px;
+  box-shadow: 14px 8px 16px 4px #8d4c4c;
 }
 
 .gameBoard table {
@@ -13,15 +13,20 @@
   height: 100%;
 }
 
-.gameBoard tr:nth-child(2) td{
+.gameBoard tr:nth-child(2) td {
   border-radius: 7px;
   box-shadow: 0px 0px 18px 11px #8b4c4c;
 }
 
-.gameBoard tr:nth-child(1) td,
-.gameBoard tr:nth-child(3) td{
-    height: 45%;
-    width: 50%;
+.gameBoard tr:nth-child(1) td:nth-child(1),
+.gameBoard tr:nth-child(1) td:nth-child(3),
+.gameBoard tr:nth-child(3) td:nth-child(1),
+.gameBoard tr:nth-child(3) td:nth-child(3) {
+  height: 45%;
+  width: 48%;
 }
 
-
+.gameBoard tr:nth-child(1) td:nth-child(2),
+.gameBoard tr:nth-child(3) td:nth-child(2) {
+  
+}
