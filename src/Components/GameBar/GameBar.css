@@ -22,45 +22,13 @@
 }
 
 .bar.top span.ball {
-    position: absolute;
-    left: 3px;
-    top: 0;
-}
-
-.bar.top span.ball:nth-child(1) {
-    top: 0;
-}
-.bar.top span.ball:nth-child(2) {
-    top: 30px;
-}
-.bar.top span.ball:nth-child(3) {
-    top: 60px;
-}
-.bar.top span.ball:nth-child(4) {
-    top: 90px;
-}
-.bar.top span.ball:nth-child(5) {
-    top: 120px;
+  position: absolute;
+  left: 3px;
+  top: 0;
 }
 
 .bar.bottom span.ball {
-    position: absolute;
-    left: 3px;
-    bottom: 0;
-}
-
-.bar.bottom span.ball:nth-child(1) {
-    bottom: 0;
-}
-.bar.bottom span.ball:nth-child(2) {
-    bottom: 30px;
-}
-.bar.bottom span.ball:nth-child(3) {
-    bottom: 60px;
-}
-.bar.bottom span.ball:nth-child(4) {
-    bottom: 90px;
-}
-.bar.bottom span.ball:nth-child(5) {
-    bottom: 120px;
+  position: absolute;
+  left: 3px;
+  bottom: 0;
 }

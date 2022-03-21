@@ -27,6 +27,7 @@ const GameBall = (props) => {
     <span
       onClick={clickHandler}
       className={classes + clickState.selectedClass}
+      style={props.style}
     ></span>
   );
 };
