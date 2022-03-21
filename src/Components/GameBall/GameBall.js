@@ -28,7 +28,7 @@ const GameBall = (props) => {
       onClick={clickHandler}
       className={classes + clickState.selectedClass}
       style={props.style}
-    ></span>
+    >{props.count}</span>
   );
 };
 

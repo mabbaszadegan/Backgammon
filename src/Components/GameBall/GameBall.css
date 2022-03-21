@@ -5,12 +5,14 @@
   display: block;
   margin: 2pt;
   cursor: pointer;
+  padding-top: 10px;
 }
 
 .player1 {
   background-color: white;
   border: 1px black solid;
   box-shadow: inset 1px 1px 13px 3px black;
+  color: black;
 }
 
 .ball.player1.selected {
@@ -22,6 +24,7 @@
   background-color: black;
   border: 1px white solid;
   box-shadow: inset 1px 1px 13px 3px white;
+  color: white;
 }
 
 .ball.player2.selected {

@@ -1,55 +1,51 @@
 import "./GameBoard.css";
+import DUMMY_BallsState from "./DUMMY_BallsState.json";
 import GameBar from "../GameBar/GameBar";
-import GameBall from "../GameBall/GameBall";
+import GameStatus from "../GameStatus/GameStatus";
 import { useState } from "react";
 
-const DUMMY_BallsState = [
-  { id: 1001, barNo: 1, playerNo: 1 },
-  { id: 1002, barNo: 1, playerNo: 1 },
-  { id: 1003, barNo: 12, playerNo: 1 },
-  { id: 1004, barNo: 12, playerNo: 1 },
-  { id: 1005, barNo: 12, playerNo: 1 },
-  { id: 1006, barNo: 12, playerNo: 1 },
-  { id: 1007, barNo: 12, playerNo: 1 },
-  { id: 1008, barNo: 17, playerNo: 1 },
-  { id: 1009, barNo: 17, playerNo: 1 },
-  { id: 1010, barNo: 17, playerNo: 1 },
-  { id: 1011, barNo: 19, playerNo: 1 },
-  { id: 1012, barNo: 19, playerNo: 1 },
-  { id: 1013, barNo: 19, playerNo: 1 },
-  { id: 1014, barNo: 19, playerNo: 1 },
-  { id: 1015, barNo: 19, playerNo: 1 },
-  { id: 2001, barNo: 6, playerNo: 2 },
-  { id: 2002, barNo: 6, playerNo: 2 },
-  { id: 2003, barNo: 6, playerNo: 2 },
-  { id: 2004, barNo: 6, playerNo: 2 },
-  { id: 2005, barNo: 6, playerNo: 2 },
-  { id: 2006, barNo: 8, playerNo: 2 },
-  { id: 2007, barNo: 8, playerNo: 2 },
-  { id: 2008, barNo: 8, playerNo: 2 },
-  { id: 2009, barNo: 13, playerNo: 2 },
-  { id: 2010, barNo: 13, playerNo: 2 },
-  { id: 2011, barNo: 13, playerNo: 2 },
-  { id: 2012, barNo: 13, playerNo: 2 },
-  { id: 2013, barNo: 13, playerNo: 2 },
-  { id: 2014, barNo: 24, playerNo: 2 },
-  { id: 2015, barNo: 24, playerNo: 2 },
-];
 const GameBoard = () => {
-  const [ballsState, setBallsState] = useState(DUMMY_BallsState);
+  const [ballsState, setBallsState] = useState(DUMMY_BallsState.data);
   const barUpdateHandler = (state) => {
     setBallsState((prevState) => {
-      const prevBallState = prevState.filter((b) => b.id === state.id)[0];
-      let newBarNo = prevBallState.barNo + state.step;
-      if (newBarNo <= 0 || newBarNo > 24) newBarNo = prevBallState.barNo;
-      return [
-        {
-          id: prevBallState.id,
-          barNo: newBarNo,
-          playerNo: prevBallState.playerNo,
-        },
-        ...prevState.filter((p) => p.id !== prevBallState.id),
-      ];
+      const getNewBallsState = () => {
+        let newBallsState = prevState;
+        const prevBallState = prevState.filter((b) => b.id === state.id)[0];
+        let newBarNo = prevBallState.barNo + state.step;
+        if (newBarNo <= 0 || newBarNo > 24) newBarNo = prevBallState.barNo;
+        const newBarBalls = prevState.filter(
+          (b) => b.barNo === newBarNo && b.playerNo !== prevBallState.playerNo
+        );
+
+        if (newBarBalls.length > 1) {
+        }
+
+        if (newBarBalls.length <= 1) {
+          newBallsState = [
+            {
+              id: prevBallState.id,
+              barNo: newBarNo,
+              playerNo: prevBallState.playerNo,
+            },
+            ...newBallsState.filter((p) => p.id !== prevBallState.id),
+          ];
+        }
+
+        if (newBarBalls.length === 1) {
+          newBallsState = [
+            {
+              id: newBarBalls[0].id,
+              barNo: -1,
+              playerNo: newBarBalls[0].playerNo,
+            },
+            ...newBallsState.filter((p) => p.id !== newBarBalls[0].id),
+          ];
+        }
+
+        return newBallsState;
+      };
+
+      return getNewBallsState();
     });
   };
 
@@ -125,7 +121,22 @@ const GameBoard = () => {
             </td>
           </tr>
           <tr>
-            <td colSpan={3}></td>
+            <td colSpan={3}>
+              <GameStatus
+                attackedBalls_player1={ballsState.filter(
+                  (bs) => bs.barNo === -1 && bs.playerNo === 1
+                )}
+                winBalls_player1={ballsState.filter(
+                  (bs) => bs.barNo === 25 && bs.playerNo === 1
+                )}
+                attackedBalls_player2={ballsState.filter(
+                  (bs) => bs.barNo === -1 && bs.playerNo === 2
+                )}
+                winBalls_player2={ballsState.filter(
+                  (bs) => bs.barNo === 25 && bs.playerNo === 2
+                )}
+              />
+            </td>
           </tr>
           <tr>
             <td>
