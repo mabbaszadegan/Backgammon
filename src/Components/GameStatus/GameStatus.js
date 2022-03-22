@@ -1,4 +1,5 @@
 import GameBall from "../GameBall/GameBall";
+import Dice from "../Dice/Dice";
 import "./GameStatus.css";
 
 const GameStatus = (props) => {
@@ -23,6 +24,7 @@ const GameStatus = (props) => {
         />
       </div>
       <div className="dice">
+          <Dice />
       </div>
       <div className="win">
         <GameBall

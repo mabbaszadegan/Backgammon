@@ -6,7 +6,19 @@ import { useState } from "react";
 
 const GameBoard = () => {
   const [ballsState, setBallsState] = useState(DUMMY_BallsState.data);
+  const [gameState, setGameState] = useState({
+    movePlayerNo:1,
+    step1:-1,
+    step2:-1,
+    step3:-1,
+    step4:-1
+  });
+
   const barUpdateHandler = (state) => {
+    if (state.playerNo !== gameState.movePlayerNo) {
+      return;
+    }
+
     setBallsState((prevState) => {
       const getNewBallsState = () => {
         let newBallsState = prevState;
@@ -18,6 +30,7 @@ const GameBoard = () => {
         );
 
         if (newBarBalls.length > 1) {
+
         }
 
         if (newBarBalls.length <= 1) {
@@ -42,6 +55,13 @@ const GameBoard = () => {
           ];
         }
 
+        setGameState({
+          movePlayerNo:state.playerNo === 1 ? 2 : 1,
+          step1:-1,
+          step2:-1,
+          step3:-1,
+          step4:-1
+        });
         return newBallsState;
       };
 
@@ -123,6 +143,7 @@ const GameBoard = () => {
           <tr>
             <td colSpan={3}>
               <GameStatus
+                state={gameState}
                 attackedBalls_player1={ballsState.filter(
                   (bs) => bs.barNo === -1 && bs.playerNo === 1
                 )}
