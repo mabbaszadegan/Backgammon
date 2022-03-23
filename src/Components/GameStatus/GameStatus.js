@@ -3,6 +3,9 @@ import Dice from "../Dice/Dice";
 import "./GameStatus.css";
 
 const GameStatus = (props) => {
+  const rollDiceHandler = (state) => {
+    props.onGameStateChanged(state);
+  };
   return (
     <div className="gameStatusBar">
       <div className="attacked">
@@ -24,7 +27,7 @@ const GameStatus = (props) => {
         />
       </div>
       <div className="dice">
-          <Dice />
+        <Dice onRollDice={rollDiceHandler} gameState={props.gameState} />
       </div>
       <div className="win">
         <GameBall
