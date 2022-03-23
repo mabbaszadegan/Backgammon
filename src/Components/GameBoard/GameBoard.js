@@ -12,8 +12,6 @@ const GameBoard = () => {
     movePlayerNo: -1,
     steps: [],
   });
-  console.log("availableBarsForSelect", availableBarsForSelect);
-  console.log("gameState", gameState);
   const barSelectionHandler = (barNo) => {
     if (barNo === selectedBarNo) {
       setAvailableBarsForSelect([]);
@@ -23,9 +21,11 @@ const GameBoard = () => {
 
     if (selectedBarNo == null) {
       setAvailableBarsForSelect(
-        gameState.steps.map((step) =>
-          gameState.movePlayerNo === 1 ? step * 1 + barNo : step * -1 + barNo
-        )
+        gameState.steps.map((step) => {
+          return gameState.movePlayerNo === 1
+            ? step * 1 + barNo
+            : step * -1 + barNo;
+        })
       );
       setSelectedBarNo(barNo);
       return;
@@ -96,6 +96,34 @@ const GameBoard = () => {
 
   const gameStateChangedHandler = (state) => {
     setGameState(state);
+
+    const bittedBalls_player1 = ballsState.filter(
+      (bs) => bs.barNo === -1 && bs.playerNo === 1
+    );
+    const bittedBalls_player2 = ballsState.filter(
+      (bs) => bs.barNo === -1 && bs.playerNo === 2
+    );
+    debugger;
+    if (bittedBalls_player1.length === 0 && bittedBalls_player2.length === 0)
+      return;
+
+    if (gameState.movePlayerNo === 1 && bittedBalls_player1.length === 0)
+      return;
+
+    if (gameState.movePlayerNo === 2 && bittedBalls_player2.length === 0)
+      return;
+
+    setAvailableBarsForSelect(
+      state.steps.map((step) => {
+        let newStep = step;
+        if (gameState.movePlayerNo === 2 && bittedBalls_player2.length > 0)
+          newStep = 25 - newStep;
+
+        return newStep;
+      })
+    );
+
+    setSelectedBarNo(-1);
   };
   return (
     <div className="gameBoard">

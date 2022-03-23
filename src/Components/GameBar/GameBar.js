@@ -1,17 +1,20 @@
 import "./GameBar.css";
 import GameBall from "../GameBall/GameBall";
-import { useState } from "react";
 const GameBar = (props) => {
+  const balls = props.balls.filter((b) => b.barNo === props.barNo);
+ 
   const getBarIsAvailable = () => {
     if (
       props.availableBarsForSelect.length > 0 &&
-      props.availableBarsForSelect.indexOf(props.barNo) > -1
+      props.availableBarsForSelect.indexOf(props.barNo) > -1 &&
+      (balls.length <= 1 || balls[0].playerNo === props.gameState.movePlayerNo)
     )
       return true;
     if (
       props.availableBarsForSelect.length === 0 &&
-      props.balls.length > 0 &&
-      props.balls[0].playerNo === props.gameState.movePlayerNo
+      balls.length > 0 &&
+      balls[0].playerNo === props.gameState.movePlayerNo &&
+      props.gameState.steps.length > 0
     )
       return true;
 
@@ -39,7 +42,7 @@ const GameBar = (props) => {
 
   return (
     <div className={classes} onClick={barClickHandler}>
-      {props.balls.map((ball, index) => (
+      {balls.map((ball, index) => (
         <GameBall
           key={"ball_" + ball.id}
           ballId={ball.id}
