@@ -1,20 +1,24 @@
 import "./GameBar.css";
 import GameBall from "../GameBall/GameBall";
+import GameContext from "../../GameContexts/board-context";
+import { useContext } from "react";
 const GameBar = (props) => {
-  const balls = props.balls.filter((b) => b.barNo === props.barNo);
- 
+  const ctx = useContext(GameContext);
+  const isSelectedBarNo = ctx.selectedBarNo === props.barNo;
+  const balls = ctx.balls.filter((b) => b.barNo === props.barNo);
+
   const getBarIsAvailable = () => {
     if (
-      props.availableBarsForSelect.length > 0 &&
-      props.availableBarsForSelect.indexOf(props.barNo) > -1 &&
-      (balls.length <= 1 || balls[0].playerNo === props.gameState.movePlayerNo)
+      ctx.availableBarsForSelect.length > 0 &&
+      ctx.availableBarsForSelect.indexOf(props.barNo) > -1 &&
+      (balls.length <= 1 || balls[0].playerNo === ctx.gameState.movePlayerNo)
     )
       return true;
     if (
-      props.availableBarsForSelect.length === 0 &&
+      ctx.availableBarsForSelect.length === 0 &&
       balls.length > 0 &&
-      balls[0].playerNo === props.gameState.movePlayerNo &&
-      props.gameState.steps.length > 0
+      balls[0].playerNo === ctx.gameState.movePlayerNo &&
+      ctx.gameState.steps.length > 0
     )
       return true;
 
@@ -31,13 +35,13 @@ const GameBar = (props) => {
   let classes = "bar " + props.className;
   const barIsAvailable = getBarIsAvailable();
 
-  if (props.isSelected) classes += " selected";
-  if (!props.isSelected && barIsAvailable) classes += " available";
+  if (isSelectedBarNo) classes += " selected";
+  if (!isSelectedBarNo && barIsAvailable) classes += " available";
 
   const barClickHandler = (event) => {
-    if (!barIsAvailable && !props.isSelected) return;
+    if (!barIsAvailable && !isSelectedBarNo) return;
 
-    props.onBarSelected(props.barNo);
+    ctx.onBarSelected(props.barNo);
   };
 
   return (
